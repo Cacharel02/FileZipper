@@ -1,5 +1,6 @@
 package com.perso.fileZipperTool.controller;
 
+import com.perso.fileZipperTool.exceptions.NoUploadedFileException;
 import com.perso.fileZipperTool.utils.ZipUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,6 +21,10 @@ public class FileZipperController {
 
     @PostMapping("/zip")
     public ResponseEntity<byte[]> zipFiles(@RequestParam("files") List<MultipartFile> files) throws IOException {
+        if (files == null || files.isEmpty() || files.stream().allMatch(MultipartFile::isEmpty)) {
+            throw new NoUploadedFileException();
+        }
+
         List<ZipUtils.FichierEntry> entries = new ArrayList<>();
 
         for (MultipartFile file : files) {
