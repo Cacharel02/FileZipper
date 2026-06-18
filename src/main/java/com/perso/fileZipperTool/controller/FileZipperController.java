@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173", exposedHeaders = "Content-Disposition")
 @RestController
 @RequestMapping("/filezippertool")
 public class FileZipperController {
